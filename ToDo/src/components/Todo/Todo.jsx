@@ -64,7 +64,7 @@ const ToDo = () => {
 
   return (
     <>
-      
+      <div className="ToDo">
         <h1>To Do List: {incomplete} items pending</h1>
       
 
@@ -105,7 +105,7 @@ const ToDo = () => {
         />
       )}
       
-
+      </div>
     </>
   );
 };
