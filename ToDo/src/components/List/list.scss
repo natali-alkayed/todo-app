@@ -1,0 +1,20 @@
+.list-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+  }
+  
+  .list-item p {
+    margin: 5px 0;
+  }
+  
+  .list-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .list-item .complete {
+    cursor: pointer;
+    color: green;
+  }
+  
