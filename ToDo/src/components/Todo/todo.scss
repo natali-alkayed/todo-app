@@ -1,0 +1,46 @@
+
+$primary-color: #ff7b00;
+$secondary-color: #6c757d;
+
+.ToDo {
+  padding: 20px;
+
+  h1 {
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  form {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+
+      span {
+        display: block;
+        color: $secondary-color;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type="range"] {
+        width: 100%;
+      }
+
+      button[type="submit"] {
+        background-color: $primary-color;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+  }
+}
