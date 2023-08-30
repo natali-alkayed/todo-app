@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form.jsx';
-import { useSettingsContext } from '../../Context/Setings/SettingsContext.jsx'; 
+import { useSettingsContext } from '../../Context/Setings/SettingsContext.jsx';
 import { v4 as uuid } from 'uuid';
 import { Pagination } from '@mantine/core';
 import List from '../List/index.jsx';
-import './todo.scss';
 import PaginationComponent from '../Pagination/pagination.jsx';
+import './todo.scss';
 
 const ToDo = () => {
-  const { maxItemsPerPage, hideCompleted } = useSettingsContext(); 
+  const { settings } = useSettingsContext();
   const [defaultValues] = useState({
     difficulty: 4,
   });
@@ -33,10 +33,6 @@ const ToDo = () => {
     }
   }
 
-  function deleteItem(id) {
-    const items = list.filter(item => item.id !== id );
-    setList(items);
-  }
 
   function toggleComplete(id) {
     const items = list.map(item => {
@@ -52,12 +48,12 @@ const ToDo = () => {
     setCurrentPage(newPage);
   };
 
-  const filteredList = hideCompleted
-    ? list.filter((item) => !item.complete)
-    : list;
+  const filteredList = settings.hideCompleted
+  ? list
+  : list.filter((item) => !item.complete);
 
-  const startIndex = (currentPage - 1) * maxItemsPerPage;
-  const endIndex = startIndex + maxItemsPerPage;
+  const startIndex = (currentPage - 1) * settings.maxItemsPerPage;
+  const endIndex = startIndex + settings.maxItemsPerPage;
   const paginatedList = filteredList.slice(startIndex, endIndex);
 
   return (
@@ -87,18 +83,23 @@ const ToDo = () => {
             <button type="submit">Add Item</button>
           </label>
         </form>
-
+        
         <List items={paginatedList} toggleComplete={toggleComplete} />
         
-        {list.length > maxItemsPerPage && (
+        {list.length > settings.maxItemsPerPage && (
           <PaginationComponent
             currentPage={currentPage}
             totalItems={filteredList.length}
-            itemsPerPage={maxItemsPerPage}
+            itemsPerPage={settings.maxItemsPerPage}
             onPageChange={handlePageChange}
           />
         )}
       
+      </div>
+
+      <div>
+        <p>Items per page: {settings.maxItemsPerPage}</p>
+        <p>Show completed items: {settings.hideCompleted ? 'yes' : 'no'}</p>
       </div>
     </>
   );
