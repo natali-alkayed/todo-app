@@ -11,7 +11,7 @@ export default function App() {
     <SettingsProvider>
       <Router>
         <Header />
-        <Routes> 
+        <Routes>
           <Route path="/" element={<ToDo />} />
           <Route path="/settings" element={<SettingsForm />} />
         </Routes>

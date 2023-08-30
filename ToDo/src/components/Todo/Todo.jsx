@@ -21,7 +21,19 @@ const ToDo = () => {
     let incompleteCount = list.filter(item => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete} items pending`;
+    localStorage.setItem('todoList', JSON.stringify(list));
+    
   }, [list, incomplete]);
+
+  
+  useEffect(() => {
+    // Retrieve list data from localStorage
+    const storedList = localStorage.getItem('todoList');
+    if (storedList) {
+      setList(JSON.parse(storedList));
+    }
+  }, []);
+
 
   function addItem(item) {
     const isDuplicate = list.some(existingItem => existingItem.text === item.text && existingItem.assignee === item.assignee);
