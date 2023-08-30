@@ -18,8 +18,5 @@ const List = ({ items, toggleComplete }) => {
     </div>
   );
 };
+
 export default List;
-
-
-
-
