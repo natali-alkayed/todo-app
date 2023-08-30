@@ -8,12 +8,14 @@ import PaginationComponent from '../Pagination/pagination.jsx';
 import './todo.scss';
 
 const ToDo = () => {
-  const { settings } = useSettingsContext();
   const [defaultValues] = useState({
     difficulty: 4,
   });
+
+  const { settings } = useSettingsContext();
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
+  const [formData, setFormData] = useState({});
   const { handleChange, handleSubmit, values } = useForm(addItem, defaultValues);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -22,29 +24,31 @@ const ToDo = () => {
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete} items pending`;
     localStorage.setItem('todoList', JSON.stringify(list));
-    
   }, [list, incomplete]);
 
-  
   useEffect(() => {
-    // Retrieve list data from localStorage
     const storedList = localStorage.getItem('todoList');
     if (storedList) {
       setList(JSON.parse(storedList));
     }
+    const storedFormData = localStorage.getItem('formData');
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
   }, []);
-
 
   function addItem(item) {
     const isDuplicate = list.some(existingItem => existingItem.text === item.text && existingItem.assignee === item.assignee);
-  
+
     if (!isDuplicate) {
       item.id = uuid();
       item.complete = false;
+      const updatedList = [...list, item];
       setList([...list, item]);
+      localStorage.setItem('todoList', JSON.stringify(updatedList));
+    
     }
   }
-
 
   function toggleComplete(id) {
     const items = list.map(item => {
@@ -61,8 +65,8 @@ const ToDo = () => {
   };
 
   const filteredList = settings.hideCompleted
-  ? list
-  : list.filter((item) => !item.complete);
+    ? list
+    : list.filter((item) => !item.complete);
 
   const startIndex = (currentPage - 1) * settings.maxItemsPerPage;
   const endIndex = startIndex + settings.maxItemsPerPage;
@@ -72,10 +76,10 @@ const ToDo = () => {
     <>
       <div className="ToDo">
         <h1>To Do List: {incomplete} items pending</h1>
-      
+
         <form onSubmit={handleSubmit}>
           <h2>Add To Do Item</h2>
-    
+
           <label>
             <span>To Do Item</span>
             <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
@@ -95,9 +99,9 @@ const ToDo = () => {
             <button type="submit">Add Item</button>
           </label>
         </form>
-        
+
         <List items={paginatedList} toggleComplete={toggleComplete} />
-        
+
         {list.length > settings.maxItemsPerPage && (
           <PaginationComponent
             currentPage={currentPage}
@@ -106,7 +110,7 @@ const ToDo = () => {
             onPageChange={handlePageChange}
           />
         )}
-      
+
       </div>
 
       <div>
@@ -118,3 +122,4 @@ const ToDo = () => {
 };
 
 export default ToDo;
+

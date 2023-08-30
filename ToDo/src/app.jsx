@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ToDo from './components/Todo/Todo';
 import { SettingsProvider } from './Context/Setings/SettingsContext';
 import Header from './components/Header/index';
