@@ -7,6 +7,7 @@ function Header() {
       <ul className="nav-list">
         <li className="nav-item"><a href="/">Home</a></li>
         <li className="nav-item"><a href="/settings">settings</a></li>
+        <li className="nav-item"><a href="/logIn">LogIn</a></li>
       </ul>
     </nav>
   );
