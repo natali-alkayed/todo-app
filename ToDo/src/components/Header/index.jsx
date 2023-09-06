@@ -1,17 +1,17 @@
 import React from 'react';
 import './header.scss';
-import { Link } from 'react-router-dom';
 
-function Header()
-{
-  return(
-    <>
-  <header>
-      <h2><Link to="/">Home</Link></h2>
-      <h2><Link to="/settings">Settings</Link></h2>
-    </header>
-    </>
-  )
+function Header() {
+  return (
+    <nav className="navbar">
+      <ul className="nav-list">
+        <li className="nav-item"><a href="/">Home</a></li>
+        <li className="nav-item"><a href="/settings">settings</a></li>
+      </ul>
+    </nav>
+  );
 }
 
 export default Header;
+
+
